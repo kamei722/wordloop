@@ -47,14 +47,14 @@ const stages = [
 // ランク判定用の定数
 const RANKS = {
     SS: { threshold: 55, comment: "どうやってここまで..." },
-    S: { threshold: 48, comment: "あなたは天才ですか？？" },
-    A: { threshold: 36, comment: "素晴らしい！ループの達人！" },
+    S: { threshold: 48, comment: "え...天才？？" },
+    A: { threshold: 35, comment: "あなたはもうループの達人！!" },
     B: { threshold: 24, comment: "なかなかやるじゃん!!" },
     C: { threshold: 12, comment: "まだ目が回っているようですね" },
     D: { threshold: 0, comment: "もう少しがんばりましょう！" }
 };
 
-const PERFECT_COMMENT = "満点！! LOOPMASTER!!";
+const PERFECT_COMMENT = "満点！! あなたがLOOPMASTER!!";
 
 // タイマー関連の定数
 const INITIAL_TIME = 60;
