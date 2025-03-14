@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LOOPしりとり</title>
+        
+        <!-- CSSファイルの読み込み（順序重要） -->
+        <link rel="stylesheet" href="css/base.css">
+        <link rel="stylesheet" href="css/game.css">
+        <link rel="stylesheet" href="css/tutorial.css">
+        <link rel="stylesheet" href="css/effects.css">
+        <link rel="stylesheet" href="css/results.css">
+        <link rel="stylesheet" href="css/soundtoggle.css">
+    </head>
+    
+<body>
+
+    <!-- サウンド切り替えボタン - スタート画面用 -->
+    <div class="sound-toggle-container" id="startScreenSoundToggle">
+        <button id="soundToggleBtn" class="sound-toggle-btn" aria-label="サウンド切り替え">
+            <span class="sound-icon-on">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                </svg>
+            </span>
+            <span class="sound-icon-off" style="display: none;">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                </svg>
+            </span>
+        </button>
+    </div>
+
+    <!-- ゲーム画面用のサウンドトグル -->
+    <div class="sound-toggle-container" id="gameScreenSoundToggle" style="display: none;">
+        <button id="gameSoundToggleBtn" class="sound-toggle-btn" aria-label="サウンド切り替え">
+            <span class="sound-icon-on">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                </svg>
+            </span>
+            <span class="sound-icon-off" style="display: none;">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                </svg>
+            </span>
+        </button>
+    </div>
+
+    <!-- 結果画面用のサウンドトグル -->
+    <div class="sound-toggle-container" id="resultScreenSoundToggle" style="display: none;">
+        <button id="resultSoundToggleBtn" class="sound-toggle-btn" aria-label="サウンド切り替え">
+            <span class="sound-icon-on">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                </svg>
+            </span>
+            <span class="sound-icon-off" style="display: none;">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                </svg>
+            </span>
+        </button>
+    </div>
+
+    <!-- 体験型チュートリアル付きスタート画面 -->
+    <div class="start-screen" id="startScreen">
+        
+        <div class="tutorial-container">
+            <h2 class="tutorial-title">LOOPしりとり</h2>
+            <div class="tutorial-step">
+                <div class="tutorial-icon">1</div>
+                <div class="tutorial-text">しりとりで言葉をつなげよう！</div>
+            </div>
+            <div class="tutorial-step">
+                <div class="tutorial-icon">2</div>
+                <div class="tutorial-text">一番最初の文字と一番最後の文字もつなげよう!!</div>
+            </div>
+            <div class="tutorial-step">
+                <div class="tutorial-icon">3</div>
+                <div class="tutorial-text">できたと思ったらGO!! 単語数がそのまま得点!!</div>
+            </div>
+        </div>
+        
+        <div class="tutorial-practice">
+            <h3>試してみよう！</h3>
+            <div class="tutorial-words-area">
+                <div class="tutorial-selected-words" id="tutorialSelectedWords">
+                    <!-- 選択された単語がここに表示される -->
+                </div>
+                
+                <div class="tutorial-word-pool">
+                    <div class="tutorial-word-item" data-word="かい">
+                        <span class="first-char">か</span>い
+                    </div>
+                    <div class="tutorial-word-item" data-word="いか">
+                        <span class="first-char">い</span>か
+                    </div>
+                    <div class="tutorial-word-item" data-word="かに">
+                        <span class="first-char">か</span>に
+                    </div>
+                    <div class="tutorial-word-item" data-word="かていか">
+                        <span class="first-char">か</span>ていか
+                    </div>
+                </div>
+                
+                <button class="tutorial-go-btn" id="tutorialGoBtn">GO!!</button>
+            </div>
+            
+            <div class="tutorial-result" id="tutorialResult">
+                <!-- チュートリアル結果メッセージがここに表示される -->
+            </div>
+        </div>
+        
+        <div class="start-button-container">
+            <button id="startBtn" class="start-btn">ゲームスタート</button>
+        </div>
+    </div>
+
+    <!-- ゲーム画面 -->
+    <div class="container" id="gameContainer" style="display: none;">
+        <header>
+            <h1>ループしりとり</h1>
+        </header>
+
+        <div class="stage-info">
+            <div class="stage-number">ステージ 1</div>
+            <div class="score-container"><span id="scoreDisplay">0</span></div>
+            <div class="timer-container">
+                <div class="timer-icon">⏱</div>
+                <div class="timer">
+                    <div class="timer-bar" id="timerBar"></div>
+                    <div class="timer-text" id="timerText">60</div>
+                </div>
+            </div>
+            <div class="stage-description"></div>
+        </div>
+
+        <div class="game-area">
+            <div class="selected-words" id="selectedWords">
+                <!-- 選択された単語がここに表示される -->
+            </div>
+
+            <div class="word-pool" id="wordPool">
+                <!-- 単語プールの単語がここに表示される -->
+            </div>
+
+            <div class="controls">
+                <button class="reset-btn" id="resetBtn">リセット</button>
+                <button class="submit-btn" id="submitBtn">GO!!</button>
+            </div>
+        </div>
+    </div>
+    <!-- ゲーム終了画面 -->
+    <div class="results-screen" id="resultsScreen" style="display: none;">
+        <div class="results-container">
+            <h1 class="results-title">ゲーム終了</h1>
+            
+            <div class="score-result">
+                <div class="final-score-label">最終スコア</div>
+                <div class="final-score" id="finalScore">0</div>
+                <div class="rank-container">
+                    <div class="rank-label">ランク：</div>
+                    <div class="rank" id="finalRank">C</div>
+                </div>
+                <div class="rank-comment" id="rankComment">もう少しがんばりましょう！</div>
+            </div>
+            <div class="results-buttons">
+                <button id="retryGameBtn" class="retry-btn">もう一度挑戦する</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScriptの読み込み（順序重要） -->
+    <script src="js/soundtoggle.js"></script>
+    <script src="js/sounds.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/timer.js"></script>
+    <script src="js/effects.js"></script>
+    <script src="js/results.js"></script>
+    <script src="js/tutorial.js"></script>
+
+</body>
+</html>

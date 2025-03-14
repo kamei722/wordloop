@@ -1,0 +1,315 @@
+/* game.css - メインゲーム画面のスタイル */
+
+/* ステージ情報エリア */
+.stage-info {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 20px;
+}
+
+.stage-number {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: var(--primary-color);
+}
+
+/* スコア表示 */
+.score-container {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    background: linear-gradient(to right, rgba(255, 69, 0, 0.1), rgba(255, 165, 0, 0.2));
+    border-radius: var(--border-radius);
+    border: 2px solid rgba(255, 69, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.score-container::before {
+    content: "スコア　 ";
+    font-weight: bold;
+    font-size: 1.0em;
+    color: var(--text-color);
+}
+
+#scoreDisplay {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #FF4500;
+}
+
+/* タイマー */
+.timer-container {
+    display: flex;
+    align-items: center;
+}
+
+.timer-icon {
+    margin-right: 10px;
+    font-size: 1.5em;
+    color: #FFA500;
+    text-shadow: 0 0 5px rgba(255, 165, 0, 0.3);
+}
+
+.timer {
+    position: relative;
+    width: 150px;
+    height: 20px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.timer-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(to right, #FFD700, #FFA500);
+    transition: width 1s linear, background-color 0.5s ease;
+    box-shadow: 0 0 8px rgba(255, 165, 0, 0.5);
+}
+
+.timer-warning .timer-bar {
+    background: linear-gradient(to right, #FF8C00, #FF4500);
+    animation: pulse 1.5s infinite;
+}
+
+.timer-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    font-size: 1.1em;
+}
+
+/* ゲームエリア */
+.game-area {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* 選択された単語エリア */
+.selected-words {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    min-height: 80px;
+    max-height: 200px;
+    margin-bottom: 20px;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 10px;
+    overflow-y: auto;
+}
+
+.selected-word {
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    animation: popIn 0.3s ease-out;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.selected-word.latest-selected {
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+    transform: scale(1.05);
+    border: 2px solid var(--accent-color);
+}
+
+.arrow-icon {
+    margin: 0 5px;
+    color: var(--secondary-color);
+    font-size: 1.2em;
+}
+
+/* 単語プール */
+.word-pool {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.word-item {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 12px 8px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    transition: all var(--transition-speed);
+    position: relative;
+    overflow: hidden;
+    min-height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.3;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    /* 追加: 黒色のボールドテキスト */
+    font-weight: bold;
+    color: #000000;
+}
+
+.word-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.word-item:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/*
+.word-item.selectable {
+    border: 2px solid #FF4500;
+}
+*/
+
+.word-item.selected {
+    background-color: #e0e0e0;
+    color: #888; /* 選択済みは薄いグレー */
+    cursor: not-allowed;
+    border: none;
+    font-weight: bold; /* ボールドは維持 */
+}
+
+.word-item.invalid {
+    animation: shake 0.5s;
+}
+
+.word-item.latest-selected {
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+    transform: scale(1.05);
+    padding: 10px 6px; /* 枠線の分だけ内側のパディングを調整 */
+}
+
+
+.first-char, .last-char {
+    font-weight: bold;
+}
+
+/* コントロールエリア */
+.controls {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.reset-btn {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #4a6fa5;
+    font-weight: bold;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    max-width: 150px;
+    box-shadow: 0 4px 8px rgba(74, 111, 165, 0.3);
+    text-align: center;
+}
+
+.submit-btn {
+    background: linear-gradient(to right, #FF4500, #FFA500);
+    font-size: 2em;
+    font-weight: bold;
+    padding: 15px 40px;
+    box-shadow: 0 8px 16px rgba(255, 69, 0, 0.4);
+    transition: all 0.3s;
+    width: 60%;
+    max-width: 300px;
+    letter-spacing: 2px;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    margin: 0 auto;
+}
+
+.submit-btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 20px rgba(255, 69, 0, 0.5);
+}
+
+.submit-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 4px 8px rgba(255, 69, 0, 0.3);
+}
+
+/* モバイル対応 */
+@media (max-width: 600px) {
+    .word-pool {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 12px;
+    }
+
+    .word-item {
+        padding: 10px 6px;
+        font-size: 0.9em; /* フォントサイズを少し小さく */
+    }
+
+    .controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .reset-btn {
+        position: static;
+        width: 100%;
+        max-width: none;
+        margin-bottom: 10px;
+    }
+    
+    .submit-btn {
+        width: 100%;
+    }
+    
+    .stage-info {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+    
+    .timer-container, .score-container {
+        width: 100%;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,282 @@
+/* effects.css - エフェクトとオーバーレイのスタイル */
+
+/* 成功時のオーバーレイ */
+.success-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(76, 175, 80, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: successFlash 1s ease-out forwards;
+    pointer-events: none;
+}
+
+.success-message {
+    background-color: white;
+    padding: 20px 40px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    animation: messagePopIn 0.5s ease-out;
+}
+
+.success-message h2 {
+    margin: 0;
+    color: var(--success-color);
+    font-size: 2em;
+}
+
+.success-score {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-top: 10px;
+}
+
+/* 時間ボーナス表示 */
+.time-bonus {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #d38600;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.time-bonus::before {
+    content: "⏱";
+    margin-right: 10px;
+    font-size: 1.2em;
+    animation: spinClock 1s ease-out;
+}
+
+/* 失敗時のオーバーレイ */
+.fail-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(244, 67, 54, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: failFlash 1s ease-out forwards;
+    pointer-events: none;
+}
+
+.fail-message {
+    background-color: white;
+    padding: 20px 40px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    animation: messagePopIn 0.5s ease-out;
+}
+
+.fail-message h2 {
+    margin: 0;
+    color: var(--error-color);
+    font-size: 2em;
+}
+
+.fail-score {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--error-color);
+    margin-top: 10px;
+}
+
+/* 時間切れのオーバーレイ */
+.timeup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: timeupFlash 1.5s ease-out forwards;
+    pointer-events: none;
+}
+
+.timeup-message {
+    background-color: white;
+    padding: 30px 50px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    animation: timeupPopIn 0.5s ease-out;
+}
+
+.timeup-message h2 {
+    margin: 0;
+    color: var(--warning-color);
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.timer-icon-large {
+    font-size: 3em;
+    color: var(--warning-color);
+    margin: 10px 0;
+    animation: pulseTimer 1s infinite;
+}
+
+.timeup-score {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--warning-color);
+    margin-top: 10px;
+}
+
+/* ゲームオーバーのオーバーレイ */
+.gameover-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: gameoverFlash 2s ease-out forwards;
+    pointer-events: none;
+}
+
+.gameover-message {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px 60px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+    animation: gameoverPopIn 0.5s ease-out;
+    border: 3px solid #FF4500;
+}
+
+.gameover-message h2 {
+    margin: 0;
+    color: #FF4500;
+    font-size: 3em;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.gameover-text {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #333;
+    margin-top: 15px;
+    letter-spacing: 2px;
+}
+
+/* モーダル */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    max-width: 500px;
+    width: 80%;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: modalFadeIn 0.5s;
+}
+
+/* 単語ループ表示 */
+.loop-word {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin: 10px 0;
+    padding: 5px 15px;
+    background-color: rgba(255, 107, 107, 0.1);
+    border-radius: 20px;
+    display: inline-block;
+    position: relative;
+}
+
+/* エフェクト用アニメーション */
+@keyframes successFlash {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes failFlash {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes messagePopIn {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes spinClock {
+    0% { transform: rotate(0deg) scale(0.8); opacity: 0; }
+    100% { transform: rotate(360deg) scale(1); opacity: 1; }
+}
+
+@keyframes timeupFlash {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes timeupPopIn {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulseTimer {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.3); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+@keyframes gameoverFlash {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes gameoverPopIn {
+    0% { transform: scale(0.7); opacity: 0; }
+    70% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
