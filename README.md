@@ -1,5 +1,5 @@
 # wordloop
 ループするしりとりを作るゲーム
 
-↓プレイはこちらから↓
+プレイはこちらから
 **https://kamei722.github.io/wordloop/**
